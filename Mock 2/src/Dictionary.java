@@ -72,16 +72,26 @@ public class Dictionary {
 	 * @return
 	 */
 	public int eliminateDuplicates(String target){
-		int copies = 1;
-		if(!(dictionary.contains(target) == false)) {
-			for(int i =0; i<dictionary.size(); i++) {
-				if(dictionary.get(i) == target) {
-					copies++;
+		int counter = 0;
+		ArrayList<Integer> wordPos = new ArrayList<Integer>();
+		for(int i = 0; i<dictionary.size(); i++) {
+			if(dictionary.get(i).equals(target)) {
+				counter++;
+				wordPos.add(i);
+			}
+		}
+		if(counter>1) {
+			for(int n = 0; n<wordPos.size(); n++) {
+				if(n == 0) {
+					continue;
+				}
+				this.dictionary.remove(this.dictionary.get(wordPos.get(n)));
+				for(int m = n+1; m<wordPos.size(); m++) {
+					wordPos.set(m, wordPos.get(m)-1);
 				}
 			}
-			return copies;
 		}
-		return 0;
+		return counter;
 	}
 
 	/**ReverseDictionary method returns a new dictionary almost the same as the original except that it has to be in a different order.
@@ -91,15 +101,17 @@ public class Dictionary {
 	 * @return
 	 */
 	public ArrayList<String> reverseDictionary(){
-		//		ArrayList<String> reverse = new ArrayList<>();
-		//		int pos = 0;
-		//		if(!(dictionary.isEmpty() == true)) {
-		//			for(int i = dictionary.size(); i>0; i--) {
-		//				reverse.add(pos, dictionary.get(i));
-		//				pos++;
-		//				return reverse;
-		//			}
-		//		}
+		ArrayList<String> reversed = new ArrayList<>();
+		if(!(dictionary.isEmpty())) {
+			for(int i = 0; i<dictionary.size(); i++) {
+				for(int j = dictionary.size(); j == 0; j--) {
+
+					reversed.add(i, dictionary.get(j));
+				}
+			}
+			return reversed;
+		}
+		
 		return null;
 
 	}
